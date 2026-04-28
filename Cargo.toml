@@ -42,7 +42,12 @@ lyon_algorithms = { version = "1.0", default-features = false }
 futures-channel = { version = "0.3.32", default-features = false }
 chrono = { version = "0.4.44", default-features = false, features = ["clock"] }
 webbrowser = { version = "1.2", default-features = false }
-iced_aw = { version = "0.14", default-features = false, features = ["menu"] }
+# Pinned to 0.13.1: 0.14.x panics in MenuBarOverlay::operate when a deferred
+# `operation::focus` (triggered by selecting Reply on a message) traverses a menu tree that
+# was pruned on close — `tree.children[1]` is out of bounds. See
+# https://github.com/iced-rs/iced_aw/issues/408 (closed 2026-03-23, fix on main, unreleased).
+# Bump back to 0.14+ once a release including the fix is published.
+iced_aw = { version = "=0.13.1", default-features = false, features = ["menu"] }
 btleplug = { version = "0.11.8", default-features = false }
 emojis = { version = "0.8.1", default-features = false }
 uuid = { version = "1.23.1", default-features = false, features = ["v4"] }
